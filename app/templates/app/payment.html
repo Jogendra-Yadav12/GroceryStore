@@ -1,0 +1,83 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}payment{% endblock title %}
+{% block main-content %}
+
+<div class="container" style="margin-top:50px;">
+    <div style="text-align:center; background-color:darkgray;padding:10px;border-radius: 10px">
+    <form action="/order">
+      <div class="row">
+        <div class="col">
+          <h1 class="title">Billing Address</h1>
+
+          <div class="inputBox" style="padding:5px">
+            <span style="font-size:25px">Name :</span>
+            <input type="text" placeholder="name" />
+          </div>
+          <div class="inputBox" style="padding:5px">
+            <span style="font-size:25px">Email :</span>
+            <input type="email" placeholder="example@example.com" />
+          </div>
+          <div class="inputBox" style="padding:5px">
+            <span style="font-size:25px">Address :</span>
+            <input type="text" placeholder="address" />
+          </div>
+          <div class="inputBox" style="padding:5px">
+            <span style="font-size:25px">City :</span>
+            <input type="text" placeholder="city" />
+          </div>
+
+          <div class="flex">
+            <div class="inputBox" style="padding:5px">
+              <span style="font-size:25px">State :</span>
+              <input type="text" placeholder="india" />
+            </div>
+            <div class="inputBox" style="padding:5px">
+              <span style="font-size:25px">Zip code :</span>
+              <input type="number" placeholder="123 456" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <input
+        type="submit"
+        id="rzp-button1"
+        class="btn btn-primary"
+        value="Buy Now"
+        style="width:30%; padding:10px;margin:8px"
+      />
+
+      <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+      <script>
+        var options = {
+          key: "rzp_test_iUWZFVE5ULJWhv", 
+          amount: '20000', 
+          currency: "INR",
+          name: "Grocery Store",
+          description: "Test Transaction",
+          image: "https://example.com/your_logo",
+          order_id: "{{payment.id}}",
+          callback_url: "https://eneqd3r9zrjok.x.pipedream.net/",
+          prefill: {
+            name: "Jogendra Yadav",
+            email: "fireboyaj12@gmail.com",
+            contact: "9794108026",
+          },
+          notes: {
+            address: "Razorpay Corporate Office",
+          },
+          theme: {
+            color: "#3399cc",
+          },
+        };
+        var rzp1 = new Razorpay(options);
+        document.getElementById("rzp-button1").onclick = function (e) {
+          rzp1.open();
+          e.preventDefault();
+        };
+      </script>
+    </form>
+  </div>
+  </div>
+
+{% endblock main-content %}
